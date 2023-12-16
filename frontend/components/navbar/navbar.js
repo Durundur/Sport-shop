@@ -53,12 +53,12 @@ function Menu() {
 					<span >Dane adresowe</span>
 				</Link>
 
-				<Link href='/dashboard/address' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+				<Link href='/dashboard/settings' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
 					<IoSettingsOutline className='text-lg self-center' />
 					<span >Ustawienia konta</span>
 				</Link>
 
-				<Link href='/dashboard/address' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+				<Link href='/dashboard/reviews' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
 					<IoStarOutline className='text-lg self-center' />
 					<span >Oceń zakupione produkty</span>
 				</Link>

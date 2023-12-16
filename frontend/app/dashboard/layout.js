@@ -18,12 +18,12 @@ export default function DashboardLayout({ children }) {
 						<span >Dane adresowe</span>
 					</Link>
 
-					<Link href='/dashboard/address' className='flex flex-nowrap gap-2 bg-stone-100 rounded-lg p-2 whitespace-nowrap'>
+					<Link href='/dashboard/settings' className='flex flex-nowrap gap-2 bg-stone-100 rounded-lg p-2 whitespace-nowrap'>
 						<IoSettingsOutline className='text-lg self-center' />
 						<span >Ustawienia konta</span>
 					</Link>
 
-					<Link href='/dashboard/address' className='flex flex-nowrap gap-2 bg-stone-100 rounded-lg p-2 whitespace-nowrap'>
+					<Link href='/dashboard/reviews' className='flex flex-nowrap gap-2 bg-stone-100 rounded-lg p-2 whitespace-nowrap'>
 						<IoStarOutline className='text-lg self-center' />
 						<span >Oceń zakupione produkty</span>
 					</Link>
