@@ -1,6 +1,7 @@
 import { TfiPackage } from "react-icons/tfi";
 import { IoHomeOutline, IoSettingsOutline, IoStarOutline } from "react-icons/io5";
-import Link from 'next/link'
+import Link from 'next/link';
+import Spinner from '../../components/spinner/spinner';
 
 export default function DashboardLayout({ children }) {
 	return (
