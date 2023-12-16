@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --black-primary: #202020;
+  --white-primary: #fff;
+}
+
+body {
+  color: var(---white-primary);
+  background-color: var(--white-promary);
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  box-sizing: border-box;
+}
