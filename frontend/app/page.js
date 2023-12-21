@@ -1,11 +1,9 @@
-'use client'
-
-import ProductsGrid from '../components/product/productsGrid';
-import { products } from '../components/data'
+import ProductsGrid from '@/components/product/productsGrid';
 import { LinkWithUnderline } from '@/components/link/link';
+import { getProducts } from './api/products';
 
-
-export default function Home() {
+export default async function Home() {
+	const products = await getProducts();
 	return (
 		<main className="flex flex-col items-center flex-nowrap justify-between">
 			<>

@@ -1,7 +1,7 @@
-import Divider from '../../../components/divider/divider'
+import Divider from '@/components/divider/divider'
 import Link from 'next/link';
 import { IoCheckmark } from "react-icons/io5";
-import Input from '../../../components/forms/input';
+import Input from '@/components/forms/input';
 
 export default function Login() {
 	return (

@@ -1,5 +1,4 @@
-'use client'
-import ProductSquarePreview from './productRecPreview';
+import ProductSquarePreview from './ProductSquarePreview';
 
 export default function ProductsGrid({products}){
 	return(

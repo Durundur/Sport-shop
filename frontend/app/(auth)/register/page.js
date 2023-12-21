@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import Input from '../../../components/forms/input'
+import Input from '@/components/forms/input'
 
 export default function Register() {
 	return (
