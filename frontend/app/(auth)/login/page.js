@@ -5,7 +5,7 @@ import Input from '@/components/forms/input';
 
 export default function Login() {
 	return (
-		<div className="px-4 flex flex-col lg:flex-row lg:justify-evenly lg:px-0 mx-auto max-w-screen-lg py-12">
+		<div className="px-4 flex flex-col lg:flex-row lg:justify-evenly lg:px-0 mx-auto max-w-screen-xl py-12">
 			<section className='flex flex-col flex-nowrap gap-4 lg:w-1/4'>
 				<h1 className='text-[18px] font-medium'>Logowanie</h1>
 				<Input placeholder='Adres email'></Input>

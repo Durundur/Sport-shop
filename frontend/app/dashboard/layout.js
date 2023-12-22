@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function DashboardLayout({ children }) {
 	return (
-		<div className='max-w-screen-lg mx-auto flex flex-col px-2 lg:px-0 py-4 gap-4'>
+		<div className='max-w-screen-xl mx-auto flex flex-col px-2 lg:px-0 py-4 gap-4'>
 			<aside>
 				<h1 className='text-center font-medium text-lg'>Moje konto</h1>
 				<div className="flex flex-row overflow-y-auto gap-6 p-4">

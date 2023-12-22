@@ -6,12 +6,13 @@ import { Input } from "../input/input";
 import { TfiPackage } from "react-icons/tfi";
 import { IoHomeOutline, IoSettingsOutline, IoStarOutline, IoLogOutOutline } from "react-icons/io5";
 import {useState} from 'react';
+import CategoriesBar from './categoriesBar';
 
 export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	return (
 		<nav className="w-100 bg-black-primary text-white-primary">
-			<div className="max-w-screen-lg flex flex-wrap items-center justify-center md:justify-between gap-5 mx-auto py-4 px-2">
+			<div className="max-w-screen-xl flex flex-wrap items-center justify-center md:justify-between gap-5 mx-auto py-4 px-2">
 				<Link href="/">
 					<Logo />
 				</Link>
@@ -33,6 +34,7 @@ export default function Navbar() {
 					</Link>
 				</div>
 			</div>
+			<CategoriesBar/>
 		</nav>
 	)
 }

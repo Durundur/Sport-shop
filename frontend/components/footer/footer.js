@@ -3,7 +3,7 @@ import { LinkWithUnderline } from "../link/link"
 export default function Footer(){
 	return(
 		<section className="bg-black-primary text-white-primary w-full py-6">
-			<div className="flex w-full items-start flex-wrap md:justify-start max-w-screen-lg mx-auto">
+			<div className="flex w-full items-start flex-wrap md:justify-start max-w-screen-xl mx-auto">
 				<div className={'basis-full md:basis-1/2 lg:basis-1/5 text-center lg:text-left'}>
 					<div className={"text-lg py-4"}>Przed zakupami</div>
 					<div className='flex flex-col gap-y-2'>
