@@ -1,68 +1,32 @@
-//package com.ecommerce.customer;
-//import com.ecommerce.errorResponse.ErrorResponse;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.rest.webmvc.RepositoryRestController;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//
-//@RepositoryRestController
-//public class CustomerController {
-//
-//
-//    private CustomerRepository customerRepository;
-//
-//    @Autowired
-//    CustomerController(CustomerRepository customerRepository){
-//        this.customerRepository = customerRepository;
-//    }
-//
-//    @RequestMapping(value = "/adssad/e", method = RequestMethod.GET)
-//    public ResponseEntity<?> getAllCustomers() {
-//        List<Customer> customers = customerRepository.findAll();
-//        return new ResponseEntity<>(customers, HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<?> getCustomerById(@PathVariable String id) {
-//        Customer customer = customerRepository.findById(id).orElse(null);
-//        if (customer != null) {
-//            return new ResponseEntity<>(customer, HttpStatus.OK);
-//        } else {
-//            ErrorResponse errorResponse = new ErrorResponse("Resource not found");
-//            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-//        }
-//    }
-//
-//    @PostMapping("")
-//    public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
-//        Customer newCustomer = customerRepository.save(customer);
-//        return new ResponseEntity<>(newCustomer, HttpStatus.OK);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<?> updateCustomer(@PathVariable String id, @RequestBody Customer customer) {
-//        Customer existingCustomer = customerRepository.findById(id).orElse(null);
-//        if (existingCustomer != null) {
-//            Customer updatedCustomer = customerRepository.save(customer);
-//            return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
-//        } else {
-//            ErrorResponse errorResponse = new ErrorResponse("Resource not found");
-//            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-//        }
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<?> deleteCustomer(@PathVariable String id) {
-//        Customer existingCustomer = customerRepository.findById(id).orElse(null);
-//        if (existingCustomer != null) {
-//            customerRepository.deleteById(id);
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } else {
-//            ErrorResponse errorResponse = new ErrorResponse("Resource not found");
-//            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-//        }
-//    }
-//}
+package com.ecommerce.customer;
+
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping(path = "api/customers")
+public class CustomerController {
+
+    private final CustomerRepository customerRepository;
+
+    CustomerController(CustomerRepository customerRepository){
+        this.customerRepository = customerRepository;
+    }
+
+    @GetMapping
+    public List<Customer> findAllCustomers(){
+        return customerRepository.findAll();
+    }
+
+    @GetMapping("{id}")
+    public Optional<Customer> findCustomerById(@PathVariable String id){
+        return customerRepository.findById(id);
+    }
+
+}

@@ -4,6 +4,7 @@ import com.ecommerce.review.Review;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class Product {
     private List<String> images;
     private String category;
     private Float rating;
-    @DBRef
+    @DocumentReference
     private List<Review> reviews;
 
     public String getId() {

@@ -1,38 +1,40 @@
-//package com.ecommerce.product;
-//
-//import com.ecommerce.errorResponse.ErrorResponse;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//
-//@RestController
-//@RequestMapping("/v1/api/products")
-//public class ProductController {
-//    @Autowired
-//    private ProductRepository productRepository;
-//
-//    @GetMapping("")
-//    public ResponseEntity<?> getAllProducts() {
-//        List<Product> products = productRepository.findAll();
-//        return new ResponseEntity<>(products, HttpStatus.OK);
-//    }
-//
-//    @GetMapping("{id}")
-//    public ResponseEntity<?> getProductById(@PathVariable String id){
-//        Product product = productRepository.findById(id).orElse(null);
-//        if(product != null){
-//            return new ResponseEntity<>(product, HttpStatus.OK);
-//        } else {
-//            ErrorResponse errorResponse = new ErrorResponse("Resource not found");
-//            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-//        }
-//    }
-//
-//    @PostMapping("")
-//    public Product createProduct(@RequestBody Product product){
-//        return productRepository.save(product);
-//    }
-//}
+package com.ecommerce.product;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping(path = "api/products")
+public class ProductController {
+    private final ProductRepository productRepository;
+
+    ProductController(ProductRepository productRepository){
+        this.productRepository = productRepository;
+    }
+
+    @GetMapping
+    public List<Product> findAllProducts(){
+        return productRepository.findAll();
+    }
+
+    @GetMapping("{id}")
+    public Optional<Product> findProductById(@PathVariable String id){
+        return productRepository.findById(id);
+    }
+
+    @PutMapping("{id}")
+    public Product updateProduct(@RequestBody Product updatedProduct, @PathVariable String id){
+        Optional<Product> productToUpdate = productRepository.findById(id);
+        if(productToUpdate.isPresent()){
+            return productRepository.save(updatedProduct);
+        }
+        return null;
+    }
+
+    @PostMapping
+    public Product createProduct(@RequestBody Product product){
+        return productRepository.save(product);
+    }
+}

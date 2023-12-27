@@ -1,18 +1,26 @@
-package com.ecommerce.cart;
+package com.ecommerce.order;
 
 import com.ecommerce.customer.Customer;
-import com.ecommerce.order.OrderItem;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.*;
 
+import java.util.Date;
 import java.util.List;
 
-@Document(collection = "carts")
-public class Cart {
+@Document(collection = "orders")
+public class Order {
     @Id
     private String id;
     @Field(targetType = FieldType.OBJECT_ID)
     private String customer;
+    private String status;
+    @CreatedDate
+    private Date createdOn;
+    @LastModifiedDate
+    private Date updatedOn;
     private List<OrderItem> products;
 
     public String getId() {
@@ -29,6 +37,22 @@ public class Cart {
 
     public void setCustomer(String customer) {
         this.customer = customer;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 
     public List<OrderItem> getProducts() {

@@ -1,20 +1,23 @@
 package com.ecommerce.customer;
+import com.ecommerce.cart.Cart;
+import com.ecommerce.order.Order;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.List;
 
 
 @Document(collection = "customers")
 public class Customer {
-    @Id private String id;
+    @Id
+    private String id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String email;
     private String password;
-    private String cartId;
-    private List<String> ordersId;
     private Role role;
 
     public Role getRole() {
@@ -55,22 +58,6 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(String cartId) {
-        this.cartId = cartId;
-    }
-
-    public List<String> getOrdersId() {
-        return ordersId;
-    }
-
-    public void setOrdersId(List<String> ordersId) {
-        this.ordersId = ordersId;
     }
 
     public String getFirstName() {

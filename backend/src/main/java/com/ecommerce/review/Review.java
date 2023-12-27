@@ -1,22 +1,42 @@
 package com.ecommerce.review;
 
-import com.ecommerce.customer.Customer;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.*;
+
+import java.util.Date;
 
 @Document(collection = "reviews")
 public class Review {
     @Id
     private String id;
+    @Field(targetType = FieldType.OBJECT_ID)
+    private String product;
     private Integer rate;
     private String review;
     private String advantages;
     private String disadvantages;
-    private String date;
-    @DBRef
-    private Customer author;
+    @CreatedDate
+    private Date date;
+    @Field(targetType = FieldType.OBJECT_ID)
+    private String author;
+    private String authorName;
 
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
 
     public String getId() {
         return id;
@@ -58,19 +78,19 @@ public class Review {
         this.disadvantages = disadvantages;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public Customer getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Customer author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 }
