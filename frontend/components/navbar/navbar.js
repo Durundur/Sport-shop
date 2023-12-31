@@ -4,71 +4,108 @@ import { IoCartOutline, IoPersonOutline, IoHeartOutline, IoSearchSharp } from "r
 import { Logo } from "../logo/logo";
 import { Input } from "../input/input";
 import { TfiPackage } from "react-icons/tfi";
-import { IoHomeOutline, IoSettingsOutline, IoStarOutline, IoLogOutOutline } from "react-icons/io5";
-import {useState} from 'react';
+import { IoHomeOutline, IoSettingsOutline, IoStarOutline, IoLogOutOutline, IoMenu, IoCloseOutline } from "react-icons/io5";
+import { useEffect, useState } from 'react';
 import CategoriesBar from './categoriesBar';
+import { logout, isAuthenticated, getUserRole } from "@/lib/authService";
+import { useWindowSize } from "@/lib/hooks/useWindowSize";
 
 export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const { windowSize } = useWindowSize();
+
+	useEffect(() => {
+		if (isMenuOpen && windowSize[0] <= 768) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = 'auto';
+		}
+
+	}, [isMenuOpen, windowSize[0]])
+
 	return (
-		<nav className="w-100 bg-black-primary text-white-primary">
-			<div className="max-w-screen-xl flex flex-wrap items-center justify-center md:justify-between gap-5 mx-auto py-4 px-2">
-				<Link href="/">
-					<Logo />
-				</Link>
-
-				<Input RightIcon={IoSearchSharp} onRightIconClick={() => { }} placeholder={'Czego szukasz?'}></Input>
-
-				<div className={'flex flex-row align-middle justify-between gap-4'}>
+		<>
+			<nav className="w-100 bg-black-primary text-white-primary">
+				<div className="max-w-screen-xl flex flex-col md:flex-row flex-wrap justify-between items-center gap-5 mx-auto py-4 px-2">
+					<Link href="/">
+						<Logo />
+					</Link>
+					<button className='hidden' onClick={() => setIsMenuOpen(prevState => !prevState)}>
+						<IoMenu />
+					</button>
 					<div>
-						<IoPersonOutline onClick={() => setIsMenuOpen(!isMenuOpen)} className="w-7 h-7 cursor-pointer hover:scale-125 transition-scale duration-300 relative" />
-						{
-							isMenuOpen ? <Menu/> : <></>
-						}
+						<Input RightIcon={IoSearchSharp} onRightIconClick={() => { }} placeholder={'Czego szukasz?'}></Input>
 					</div>
-					<Link href='/wishlist'>
-						<IoHeartOutline className="w-7 h-7 hover:scale-125 transition-scale duration-300" />
-					</Link>
-					<Link href='/cart'>
-						<IoCartOutline className="w-7 h-7 hover:scale-125 transition-scale duration-300" />
-					</Link>
+					<div className={'flex flex-row align-middle justify-between gap-4'}>
+						<div>
+							<IoPersonOutline onClick={() => setIsMenuOpen(!isMenuOpen)} className="w-7 h-7 cursor-pointer hover:scale-125 transition-scale duration-300 relative" />
+							{
+								isMenuOpen ? <Menu setIsMenuOpen={setIsMenuOpen} /> : <></>
+							}
+						</div>
+						<Link href='/wishlist'>
+							<IoHeartOutline className="w-7 h-7 hover:scale-125 transition-scale duration-300" />
+						</Link>
+						<Link href='/cart'>
+							<IoCartOutline className="w-7 h-7 hover:scale-125 transition-scale duration-300" />
+						</Link>
+					</div>
 				</div>
-			</div>
-			<CategoriesBar/>
-		</nav>
+			</nav>
+			<CategoriesBar />
+		</>
 	)
 }
 
 
-
-function Menu() {
+function Menu({ setIsMenuOpen }) {
 	return (
-		<div className="absolute bg-stone-100 z-20 rounded-md text-black-primary shadow-[0_0_10px_rgba(0,0,0,.3)] -translate-x-[200px] translate-y-2">
+		<div className="fixed w-screen h-screen md:w-[227px] md:h-auto top-0 left-0 md:absolute md:left-auto md:top-auto bg-stone-100 z-20 md:rounded-md text-black-primary shadow-[0_0_10px_rgba(0,0,0,.3)] md:-translate-x-[200px] md:translate-y-2">
 			<div className="flex flex-col gap-2 p-2">
-				<Link href='/dashboard/orders' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
-					<TfiPackage className='text-lg self-center' />
-					<span>Zamówienia</span>
-				</Link>
+				<button onClick={() => setIsMenuOpen(prevState => !prevState)} className="md:hidden text-3xl self-end">
+					<IoCloseOutline />
+				</button>
+				{
+					isAuthenticated() ? <>
+						<Link href='/dashboard/orders' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+							<TfiPackage className='text-lg self-center' />
+							<span>Zamówienia</span>
+						</Link>
 
-				<Link href='/dashboard/address' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
-					<IoHomeOutline className='text-lg self-center' />
-					<span >Dane adresowe</span>
-				</Link>
+						<Link href='/dashboard/address' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+							<IoHomeOutline className='text-lg self-center' />
+							<span>Dane adresowe</span>
+						</Link>
 
-				<Link href='/dashboard/settings' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
-					<IoSettingsOutline className='text-lg self-center' />
-					<span >Ustawienia konta</span>
-				</Link>
+						<Link href='/dashboard/settings' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+							<IoSettingsOutline className='text-lg self-center' />
+							<span>Ustawienia konta</span>
+						</Link>
 
-				<Link href='/dashboard/reviews' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
-					<IoStarOutline className='text-lg self-center' />
-					<span >Oceń zakupione produkty</span>
-				</Link>
+						<Link href='/dashboard/reviews' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+							<IoStarOutline className='text-lg self-center' />
+							<span>Oceń zakupione produkty</span>
+						</Link>
 
-				<Link href='/logout' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
-					<IoLogOutOutline className='text-lg self-center' />
-					<span>Wyloguj się</span>
-				</Link>
+						{getUserRole() === 'ROLE_ADMIN' ? <Link href='/dashboard/reviews' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+							<IoSettingsOutline className='text-lg self-center' />
+							<span>Panel administratora</span>
+						</Link> : <></>}
+
+						<button onClick={() => { logout(); setIsMenuOpen(false); }} className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+							<IoLogOutOutline className='text-lg self-center' />
+							<span>Wyloguj się</span>
+						</button>
+					</> : <div className="flex flex-col justify-center gap-2 text-center">
+						<Link href={'./login'} className='bg-green-primary hover:bg-green-secondary active:bg-green-secondary text-white-primary py-2 w-full rounded-md'>
+							Zaloguj się
+						</Link>
+						<span className="text-xs">lub</span>
+						<Link href={'./register'} className='bg-orange-primary hover:bg-orange-secondary active:bg-orange-secondary text-white-primary py-2 w-full rounded-md'>
+							Załóż konto
+						</Link>
+					</div>
+				}
 			</div>
 		</div>
 	)

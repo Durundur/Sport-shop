@@ -1,22 +1,48 @@
-import Divider from '@/components/divider/divider'
+'use client'
+import Divider from '@/components/divider/divider';
 import Link from 'next/link';
 import { IoCheckmark } from "react-icons/io5";
 import Input from '@/components/forms/input';
+import { fetchWrapper } from '@/lib/fetchWrapper';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import {handleInputChange} from '@/lib/formHelpers';
+import { handleAuthResponse , isAuthenticated} from '@/lib/authService';
 
 export default function Login() {
+	const [credentials, setCredentials] = useState({
+		email: "",
+		password: ""
+	});
+	const [authResponse, setAuthResponse] = useState(null);
+	const router = useRouter();
+
+
+	async function handleSubmit(e){
+		e.preventDefault();
+		try{
+			const response = await fetchWrapper.post("/api/auth/login", credentials);
+			handleAuthResponse(response, router);
+		}catch(error){
+			setAuthResponse(error);
+			setCredentials( prevCredentials => { return {...prevCredentials, password: ""}});
+		}
+	}
+
 	return (
 		<div className="px-4 flex flex-col lg:flex-row lg:justify-evenly lg:px-0 mx-auto max-w-screen-xl py-12">
-			<section className='flex flex-col flex-nowrap gap-4 lg:w-1/4'>
+			<form className='flex flex-col flex-nowrap gap-4 lg:w-1/4' onSubmit={(e)=>handleSubmit(e)}>
 				<h1 className='text-[18px] font-medium'>Logowanie</h1>
-				<Input placeholder='Adres email'></Input>
-				<Input placeholder='Hasło'></Input>
+				<Input value={credentials.email} onChange={e => handleInputChange(e, setCredentials)} required={true} type={'email'} name={'email'} placeholder='Adres email'></Input>
+				<Input value={credentials.password} onChange={e => handleInputChange(e, setCredentials)} required={true} type={'password'} name={'password'} placeholder='Hasło'></Input>
+				<span className='text-red-400'>{authResponse?.message}</span>
 				<div className='flex flex-col gap-4 md:flex-row lg:flex-col'>
 					<button className='bg-green-primary hover:bg-green-secondary active:bg-green-secondary text-white-primary py-2 w-full rounded-md md:w-1/5 lg:w-full'>Zaloguj się</button>
 					<span className='text-center self-center'>
 						<Link className='hover:text-green-primary text-[12px] duration-300' href={'./forgot-password'}>Nie pamiętasz hasła?</Link>
 					</span>
 				</div>
-			</section>
+			</form>
 			<Divider/>
 			<section className='flex flex-col flex-nowrap gap-4 lg:w-1/4'>
 				<h1 className='text-[18px] font-medium'>Nie masz konta?</h1>
