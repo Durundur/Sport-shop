@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/orders")
+@CrossOrigin
 public class OrderController {
 
     private final OrderRepository orderRepository;

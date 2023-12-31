@@ -2,18 +2,14 @@ package com.ecommerce.auth;
 
 
 import com.ecommerce.customer.Customer;
-import com.ecommerce.customer.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.ecommerce.exceptions.AccountAlreadyExistException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping(path = "api/auth")
+@CrossOrigin
 public class AuthController {
 
     private final JwtTokenUtil jwtTokenUtil;
@@ -28,15 +24,15 @@ public class AuthController {
     public ResponseEntity<AuthResponse> loginUser(@RequestBody AuthRequest loginRequest) {
         Customer user = authService.authenticate(loginRequest);
         String token = jwtTokenUtil.generateToken(user);
-        AuthResponse response = new AuthResponse();
-        response.setToken(token);
-        response.setExpiresIn(jwtTokenUtil.getExpirationTime());
+        AuthResponse response = new AuthResponse(token, jwtTokenUtil.getExpirationTime(), user.getRole());
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody Customer registerRequest) {
-        Customer savedCustomer = authService.register(registerRequest);
-        return ResponseEntity.ok(savedCustomer);
+    public ResponseEntity<AuthResponse> registerUser(@RequestBody Customer registerRequest) throws AccountAlreadyExistException {
+        Customer user =  authService.register(registerRequest);
+        String token = jwtTokenUtil.generateToken(user);
+        AuthResponse response = new AuthResponse(token, jwtTokenUtil.getExpirationTime(), user.getRole());
+        return ResponseEntity.ok(response);
     }
 }

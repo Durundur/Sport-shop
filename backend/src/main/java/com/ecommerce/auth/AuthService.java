@@ -3,6 +3,7 @@ package com.ecommerce.auth;
 import com.ecommerce.customer.Customer;
 import com.ecommerce.customer.CustomerRepository;
 import com.ecommerce.customer.Role;
+import com.ecommerce.exceptions.AccountAlreadyExistException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +23,10 @@ public class AuthService {
     }
 
 
-    public Customer register(Customer customer) {
+    public Customer register(Customer customer) throws AccountAlreadyExistException {
+        if(customerRepository.existsByEmail(customer.getEmail())){
+            throw new AccountAlreadyExistException("Account with this email already exist");
+        }
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         customer.setRole(Role.ROLE_USER);
         return customerRepository.save(customer);
@@ -35,7 +39,6 @@ public class AuthService {
                         loginRequest.getPassword()
                 )
         );
-
         return customerRepository.findByEmail(loginRequest.getEmail());
     }
 }
