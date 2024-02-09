@@ -21,7 +21,7 @@ export default function Cart() {
 							</Link>
 						</div> :
 						<div>
-							{cart?.products.map((product) => <CartListItem product={product} />)}
+							{cart?.products.map((product, index) => <CartListItem product={product} key={index}/>)}
 							<div className="flex flex-col items-end gap-6 py-4">
 								<div className="flex flex-row justify-center items-center gap-6">
 									<span className="text-lg">Wartość koszyka</span>

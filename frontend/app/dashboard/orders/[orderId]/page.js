@@ -8,7 +8,7 @@ export default function Orders({ params }) {
 	const [order, setOrder] = useState();
 	useEffect(() => {
 		fetchWrapper.get(`/api/orders/${params.orderId}`).then((order) => setOrder(order));
-	}, [])
+	}, [params.orderId])
 
 	return (
 		<div className='flex flex-col gap-4 p-4'>
