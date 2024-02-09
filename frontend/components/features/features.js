@@ -7,7 +7,7 @@ export default function FeaturesBar(){
 			<div className="max-w-screen-xl mx-auto py-6">
 				<div className="flex text-blue-primary text-xs text-center flex-wrap gap-y-4">
 					<div className="flex flex-col items-center w-1/3 md:w-1/5 gap-4">
-						<Image src={'/icon1.png'} width={50} height={50} alt={'icon1'}/>
+						<Image src={'/icon1.png'} width={50} height={50} alt={'icon1'} />
 						<p className={'w-3/4'}>99% naszych klientów nas poleca</p>
 					</div>
 					<div className="flex flex-col items-center w-1/3 md:w-1/5 gap-4">
@@ -29,5 +29,6 @@ export default function FeaturesBar(){
 				</div>
 			</div>
 		</section>
+
 	)
 }

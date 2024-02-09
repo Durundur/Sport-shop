@@ -4,7 +4,7 @@ export const fetchWrapper = {
 	get,
 	post,
 	put,
-	delete: _delete
+	delete: _delete,
 };
 
 function get(url) {

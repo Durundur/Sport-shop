@@ -7,7 +7,7 @@ import { fetchWrapper } from '@/lib/fetchWrapper';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {handleInputChange} from '@/lib/formHelpers';
-import { handleAuthResponse , isAuthenticated} from '@/lib/authService';
+import { handleAuthResponse} from '@/lib/authService';
 
 export default function Login() {
 	const [credentials, setCredentials] = useState({
@@ -47,7 +47,7 @@ export default function Login() {
 			<section className='flex flex-col flex-nowrap gap-4 lg:w-1/4'>
 				<h1 className='text-[18px] font-medium'>Nie masz konta?</h1>
 				<Link href='/register'>
-					<button className='bg-orange-primary hover:bg-orange-secondary active:bg-orange-secondary text-white-primary py-2 w-full rounded-md md:w-1/5 lg:w-full'>Załóż konto</button>
+					<button className='bg-orange-primary hover:bg-orange-secondary text-white-primary py-2 w-full rounded-md md:w-1/5 lg:w-full'>Załóż konto</button>
 				</Link>
 				<span className='font-bold text-[13px] mt-4'>Dlaczego warto założyć konto?</span>
 				<ul className='flex flex-col gap-2 text-[13px]'>

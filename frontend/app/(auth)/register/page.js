@@ -4,6 +4,7 @@ import { fetchWrapper } from '@/lib/fetchWrapper';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {handleInputChange} from '@/lib/formHelpers';
+import { handleAuthResponse } from '@/lib/authService';
 
 export default function Register() {
 	const [registerBody, setRegisterBody] = useState({
@@ -24,7 +25,7 @@ export default function Register() {
 			return;
 		}
 		try{
-			const response = await fetchWrapper.post("/api/auth/login", credentials);
+			const response = await fetchWrapper.post("/api/auth/register", registerBody);
 			handleAuthResponse(response, router);
 		}catch(error){
 			setRegisterResponse(error);
@@ -50,7 +51,7 @@ export default function Register() {
 				<Input name='password' value={registerBody.password} onChange={e => handleInputChange(e, setRegisterBody)} required={true} max={50} min={3} type='password' placeholder='Hasło'></Input>
 				<Input value={repeatPass} onChange={e => setRepeatPass(e.target.value)} name='repeatPassword' type='password' placeholder='Powtórz hasło'></Input>
 				<span className='text-red-400'>{isPassError ? "Hasła nie są identyczne" : registerResponse?.message}</span>
-				<button className='bg-orange-primary hover:bg-orange-secondary active:bg-orange-secondary text-white-primary py-2 w-full rounded-md md:w-1/5 lg:w-full'>Załóż konto</button>
+				<button className='bg-orange-primary hover:bg-orange-secondary text-white-primary py-2 w-full rounded-md md:w-1/5 lg:w-full'>Załóż konto</button>
 			</form>
 		</section>
 	)

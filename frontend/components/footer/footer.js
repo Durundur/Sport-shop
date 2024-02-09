@@ -1,7 +1,7 @@
 import { LinkWithUnderline } from "../link/link"
 
-export default function Footer(){
-	return(
+export default function Footer() {
+	return (
 		<section className="bg-black-primary text-white-primary w-full py-6">
 			<div className="flex w-full items-start flex-wrap md:justify-start max-w-screen-xl mx-auto">
 				<div className={'basis-full md:basis-1/2 lg:basis-1/5 text-center lg:text-left'}>
@@ -51,6 +51,6 @@ export default function Footer(){
 				</div>
 			</div>
 			<div className='flex justify-center pt-8'><span> Copyright &copy; 2023 sport-shop.pl</span></div>
-		</section>	
+		</section>
 	)
 }

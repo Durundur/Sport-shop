@@ -9,10 +9,15 @@ import { useEffect, useState } from 'react';
 import CategoriesBar from './categoriesBar';
 import { logout, isAuthenticated, getUserRole } from "@/lib/authService";
 import { useWindowSize } from "@/lib/hooks/useWindowSize";
+import { useRouter } from 'next/navigation'
 
 export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [searchInput, setSearchInput] = useState("");
+	const router = useRouter();
 	const { windowSize } = useWindowSize();
+
+	console.log(searchInput);
 
 	useEffect(() => {
 		if (isMenuOpen && windowSize[0] <= 768) {
@@ -34,7 +39,7 @@ export default function Navbar() {
 						<IoMenu />
 					</button>
 					<div>
-						<Input RightIcon={IoSearchSharp} onRightIconClick={() => { }} placeholder={'Czego szukasz?'}></Input>
+						<Input RightIcon={IoSearchSharp} onRightIconClick={() => { router.push(`/products?name=${searchInput}`) }} value={searchInput} onChange={(e) => setSearchInput(e.target.value)} placeholder={'Szukaj'}></Input>
 					</div>
 					<div className={'flex flex-row align-middle justify-between gap-4'}>
 						<div>
@@ -62,32 +67,32 @@ function Menu({ setIsMenuOpen }) {
 	return (
 		<div className="fixed w-screen h-screen md:w-[227px] md:h-auto top-0 left-0 md:absolute md:left-auto md:top-auto bg-stone-100 z-20 md:rounded-md text-black-primary shadow-[0_0_10px_rgba(0,0,0,.3)] md:-translate-x-[200px] md:translate-y-2">
 			<div className="flex flex-col gap-2 p-2">
-				<button onClick={() => setIsMenuOpen(prevState => !prevState)} className="md:hidden text-3xl self-end">
+				<button onClick={() => setIsMenuOpen(false)} className="md:hidden text-3xl self-end">
 					<IoCloseOutline />
 				</button>
 				{
 					isAuthenticated() ? <>
-						<Link href='/dashboard/orders' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+						<Link href='/dashboard/orders' onClick={() => setIsMenuOpen(false)} className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
 							<TfiPackage className='text-lg self-center' />
 							<span>Zamówienia</span>
 						</Link>
 
-						<Link href='/dashboard/address' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+						<Link href='/dashboard/address' onClick={() => setIsMenuOpen(false)} className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
 							<IoHomeOutline className='text-lg self-center' />
-							<span>Dane adresowe</span>
+							<span>Dane</span>
 						</Link>
 
-						<Link href='/dashboard/settings' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+						<Link href='/dashboard/settings' onClick={() => setIsMenuOpen(false)} className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
 							<IoSettingsOutline className='text-lg self-center' />
-							<span>Ustawienia konta</span>
+							<span>Ustawienia</span>
 						</Link>
 
-						<Link href='/dashboard/reviews' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+						<Link href='/dashboard/reviews' onClick={() => setIsMenuOpen(false)} className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
 							<IoStarOutline className='text-lg self-center' />
-							<span>Oceń zakupione produkty</span>
+							<span>Oceń</span>
 						</Link>
 
-						{getUserRole() === 'ROLE_ADMIN' ? <Link href='/dashboard/reviews' className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
+						{getUserRole() === 'ROLE_ADMIN' ? <Link href='/dashboard/reviews' onClick={() => setIsMenuOpen(false)} className='flex flex-nowrap gap-2 bg-white-primary rounded-lg p-2 whitespace-nowrap hover:bg-stone-50 hover:shadow-md'>
 							<IoSettingsOutline className='text-lg self-center' />
 							<span>Panel administratora</span>
 						</Link> : <></>}
@@ -97,12 +102,12 @@ function Menu({ setIsMenuOpen }) {
 							<span>Wyloguj się</span>
 						</button>
 					</> : <div className="flex flex-col justify-center gap-2 text-center">
-						<Link href={'./login'} className='bg-green-primary hover:bg-green-secondary active:bg-green-secondary text-white-primary py-2 w-full rounded-md'>
+						<Link href={'/login'} onClick={() => setIsMenuOpen(false)} className='bg-green-primary hover:bg-green-secondary text-white-primary py-2 w-full rounded-md'>
 							Zaloguj się
 						</Link>
 						<span className="text-xs">lub</span>
-						<Link href={'./register'} className='bg-orange-primary hover:bg-orange-secondary active:bg-orange-secondary text-white-primary py-2 w-full rounded-md'>
-							Załóż konto
+						<Link href={'/register'} onClick={() => setIsMenuOpen(false)} className='bg-orange-secondary hover:bg-orange-primary text-white-primary py-2 w-full rounded-md'>
+							Zarejestruj się
 						</Link>
 					</div>
 				}

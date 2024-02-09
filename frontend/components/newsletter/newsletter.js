@@ -1,7 +1,7 @@
 'use client'
 
-export default function NewsletterBar(){
-	return(
+export default function NewsletterBar() {
+	return (
 		<section className="bg-blue-primary w-full">
 			<div className="max-w-screen-xl mx-auto flex py-4 gap-8 justify-center flex-wrap">
 				<div className="flex flex-col items-center md:items-end text-white-primary text-md">
