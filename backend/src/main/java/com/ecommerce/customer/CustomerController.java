@@ -1,6 +1,7 @@
 package com.ecommerce.customer;
 
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +19,13 @@ public class CustomerController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Customer> findAllCustomers(){
         return customerRepository.findAll();
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Optional<Customer> findCustomerById(@PathVariable String id){
         return customerRepository.findById(id);
     }

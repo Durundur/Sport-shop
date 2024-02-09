@@ -5,10 +5,36 @@ import org.springframework.data.mongodb.core.mapping.FieldType;
 
 public class OrderItem {
     @Field(targetType = FieldType.OBJECT_ID)
-    private String product;
+    private String id;
     private String name;
     private int quantity;
-    private Float price;
+
+    private Float newPrice;
+    private Float oldPrice;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Float getNewPrice() {
+        return newPrice;
+    }
+
+    public void setNewPrice(Float newPrice) {
+        this.newPrice = newPrice;
+    }
+
+    public Float getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(Float oldPrice) {
+        this.oldPrice = oldPrice;
+    }
 
     public String getName() {
         return name;
@@ -18,13 +44,7 @@ public class OrderItem {
         this.name = name;
     }
 
-    public String getProduct() {
-        return product;
-    }
 
-    public void setProduct(String product) {
-        this.product = product;
-    }
 
     public int getQuantity() {
         return quantity;
@@ -34,11 +54,5 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public Float getPrice() {
-        return price;
-    }
 
-    public void setPrice(Float price) {
-        this.price = price;
-    }
 }
