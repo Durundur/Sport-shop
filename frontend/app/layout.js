@@ -24,7 +24,6 @@ export default function RootLayout({ children }) {
 					<CartProvider>
 						{children}
 					</CartProvider>
-
 				</main>
 				<footer>
 					<FeaturesBar />

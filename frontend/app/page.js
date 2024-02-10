@@ -4,7 +4,7 @@ import Carousel from '@/components/carousel/carousel';
 
 
 export async function getRecommendedProducts() {
-	const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {cache: 'no-cache'});
+	const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, { cache: 'no-cache' });
 	if (!response.ok) {
 		throw new Error('Failed to fetch data')
 	}
@@ -25,16 +25,21 @@ export default async function Home() {
 	const newestProducts = await getNewestProducts();
 	const recommendedProducts = await getRecommendedProducts();
 	return (
-		<main className="flex flex-col items-center flex-nowrap justify-between">
-			<Carousel slides={data}/>
-			<div className='py-2'>
-				<h1 className={'text-[18px] font-medium'}><LinkWithUnderline href={'/newest'}>Najnowsze produkty</LinkWithUnderline></h1>
-				<ProductsGrid products={newestProducts} />
-			</div>
-			<div className='py-2'>
-				<h1 className={'text-[18px] font-medium'}><LinkWithUnderline href={'/best'}>Polecane</LinkWithUnderline></h1>
-				<ProductsGrid products={recommendedProducts} />
-			</div>
-		</main>
+		<div className='max-w-screen-xl mx-auto'>
+			<section className="grid grid-cols-1 gap-y-4 my-6">
+				<div className='aspect-[63/20]'>
+					<Carousel slides={data}></Carousel>
+				</div>
+				<div className='py-2'>
+					<h1 className={'text-[18px] font-medium'}><LinkWithUnderline href={'/newest'}>Najnowsze produkty</LinkWithUnderline></h1>
+					<ProductsGrid products={newestProducts} />
+				</div>
+				<div className='py-2'>
+					<h1 className={'text-[18px] font-medium'}><LinkWithUnderline href={'/best'}>Polecane</LinkWithUnderline></h1>
+					<ProductsGrid products={recommendedProducts} />
+				</div>
+			</section>
+		</div>
+
 	)
 }

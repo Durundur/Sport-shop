@@ -106,7 +106,7 @@ function Menu({ setIsMenuOpen }) {
 							Zaloguj się
 						</Link>
 						<span className="text-xs">lub</span>
-						<Link href={'/register'} onClick={() => setIsMenuOpen(false)} className='bg-orange-secondary hover:bg-orange-primary text-white-primary py-2 w-full rounded-md'>
+						<Link href={'/register'} onClick={() => setIsMenuOpen(false)} className='bg-orange-primary hover:bg-orange-secondary text-white-primary py-2 w-full rounded-md'>
 							Zarejestruj się
 						</Link>
 					</div>

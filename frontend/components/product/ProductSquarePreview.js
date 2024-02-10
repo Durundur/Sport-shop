@@ -26,7 +26,6 @@ export default function ProductSquarePreview({product}){
 				{
 					product?.oldPrice ? <p className={'text-gray-400 line-through decoration-solid'}>{product?.oldPrice} zł</p> : <></>
 				}
-				
 			</div>
 		</div>
 	)

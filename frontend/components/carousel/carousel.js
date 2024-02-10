@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 export default function Carousel({ slides }) {
     const [currentSlide, setCurrentSlide] = useState(0);
     const carouselRef = useRef(null);
-
+    console.log(slides.length);
     function slide(direction) {
         const totalSlides = slides.length;
         if (direction === 'forward') {
@@ -26,12 +26,12 @@ export default function Carousel({ slides }) {
     }, [currentSlide]);
 
     return (
-        <div className='max-w-screen-xl w-full mx-auto py-2 text-white-primary text-4xl relative'>
+        <div className='w-full h-full text-white-primary text-4xl relative'>
             <button onClick={() => slide('backward')} className='absolute top-1/2 -translate-y-1/2 z-10 hover:bg-orange-primary bg-gray-800/30 py-1 transition-all duration-[300]'><IoChevronBack /></button>
-            <div ref={carouselRef} className='flex flex-nowrap overflow-x-hidden snap-x'>
+            <div ref={carouselRef} className='flex h-full w-full flex-nowrap overflow-x-hidden snap-x'>
                 {slides?.map((slide, index) => (
-                    <Link key={index} href='' className={`aspect-[3.15/1] relative basis-full flex-none snap-center`}>
-                        <Image className='object-cover rounded-md' alt={slide} src={slide} fill />
+                    <Link key={index} href='' className={`relative h-full w-full flex-none snap-center`}>
+                        <Image className='object-contain rounded-md' fill alt={slide} src={slide} />
                     </Link>
                 ))}
             </div>
