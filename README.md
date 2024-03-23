@@ -2,7 +2,7 @@
 
 E-commerce application for a sports equipment store. The application is built using Next.js on the frontend and the Java Spring framework on the backend.
 
-App avaible is on: [https://sport-shop-two.vercel.app](https://sport-shop-two.vercel.app), It takes around 1 minute to wake up the api.
+App available is on: [https://sport-shop-two.vercel.app](https://sport-shop-two.vercel.app), It takes around 1 minute to wake up the api.
 
 ## Features:
 - Responsive interface
